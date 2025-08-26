@@ -11,15 +11,6 @@ DualTableTask：雙桌飲品協作任務
 > 目前進度：可以辨識右方杯子，指向左方對應飲料，成功率54%
 
 
-\`\`\`diff
-- red
-+ green
-! orange
-# gray
-\`\`\`
-
-
-
  - [x] UR10 模型建置 in robosuite
  - [x] 飲料、杯子模型建置 in robosuite
  - [x] 定義DualTableTask
