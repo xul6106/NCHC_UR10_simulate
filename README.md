@@ -41,7 +41,9 @@ Hardware:
 Software:
 
 Ubuntu 20.04
+
 Mujoco dependencies
+
 Conda environment
 
 ---
