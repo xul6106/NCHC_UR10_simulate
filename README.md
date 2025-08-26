@@ -10,7 +10,7 @@ DualTableTask：雙桌飲品協作任務
 
 目前進度：可以辨識右方杯子，指向左方對應飲料，成功率僅54%
 
-<img width="1519" height="892" alt="image" src="NCHC_UR10_simulate/Dualtabletask.png" />
+<img width="1519" height="892" alt="image" src="Dualtabletask.png" />
 
 ---
 
