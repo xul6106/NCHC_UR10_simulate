@@ -88,4 +88,6 @@ $ pip install -e .
 ---
 
 # 🧾 Reference
-[[robomimic]](https://robomimic.github.io/ "link") 
+[[robomimic]](https://robomimic.github.io/ "link") a framework for robot learning from demonstration
+
+[[robosuite]](https://robosuite.ai/ "link") a simulation framework
