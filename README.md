@@ -56,4 +56,3 @@ $ git clone https://github.com/ARISE-Initiative/robomimic.git
 $ cd robomimic
 $ pip install -e .
 ```
-"# NCHC_UR10_simulate" 
