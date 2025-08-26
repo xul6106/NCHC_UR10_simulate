@@ -34,7 +34,7 @@ DualTableTask：雙桌飲品協作任務
 ---
 
 # Installation
-Install conda environment on a Linux machine with Nvidia GPU. On Ubuntu 20.04 you need to install the following apt packages for mujoco:
+要在具有 Nvidia GPU 的 Linux機器（Ubuntu 20.04）上安裝 Conda 環境以使用 MuJoCo，需要安裝以下apt套件:
 ```Bash
 $ sudo apt install -y libosmesa6-dev libgl1-mesa-glx libglfw3 patchelf
 ```
