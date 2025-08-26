@@ -8,7 +8,16 @@ DualTableTask：雙桌飲品協作任務
 
 * * *
 
-目前進度：可以辨識右方杯子，指向左方對應飲料，成功率僅54%
+目前進度：可以辨識右方杯子，指向左方對應飲料，成功率54%
+
+ - [x] UR10 模型建置 in robosuite
+ - [x] 飲料、杯子模型建置 in robosuite
+ - [x] 定義DualTableTask
+ - [x] 收集超過800筆數據、訓練BC-RNN模型(成功率54%)
+ - [ ] 提升BC-RNN成功率：重新定義rewards、
+ - [ ] 更改模型架構：找出成功率高的模型架構
+ - [ ] 調整task目標：加上爪夾、將飲料送至右桌
+ - [ ] 放到實際手臂上測試：UR10 at NCHC 中群實驗室
 
 <img width="1519" height="892" alt="image" src="Dualtabletask.png" />
 
