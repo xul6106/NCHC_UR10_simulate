@@ -1,0 +1,178 @@
+<?xml version="1.0" ?>
+<mujoco model="ur10_robot">
+  <compiler angle="radian"/>
+
+  <actuator>
+    <!-- Physical limits of the actuator. -->
+    <!-- Values taken from https://www.universal-robots.com/articles/ur-articles/max-joint-torques/ -->
+    <motor ctrllimited="true" ctrlrange="-330.0 330.0" joint="shoulder_pan_joint" name="torq_j1"/>
+    <motor ctrllimited="true" ctrlrange="-330.0 330.0" joint="shoulder_lift_joint" name="torq_j2"/>
+    <motor ctrllimited="true" ctrlrange="-150.0 150.0" joint="elbow_joint" name="torq_j3"/>
+    <motor ctrllimited="true" ctrlrange="-56.0 56.0" joint="wrist_1_joint" name="torq_j4"/>
+    <motor ctrllimited="true" ctrlrange="-56.0 56.0" joint="wrist_2_joint" name="torq_j5"/>
+    <motor ctrllimited="true" ctrlrange="-56.0 56.0" joint="wrist_3_joint" name="torq_j6"/>
+  </actuator>
+
+  <asset>
+    <!-- ADDED: Material definitions from UR10  for visual rendering -->
+    <material name="Black" specular="0.5" shininess="0.25" rgba="0.033102 0.033102 0.033102 1.000000"/>
+    <material name="JointGrey" specular="0.5" shininess="0.25" rgba="0.278431 0.278431 0.278431 1.000000"/>
+    <material name="LinkGrey" specular="0.5" shininess="0.25" rgba="0.820392 0.820392 0.820392 1.000000"/>
+    <material name="URBlue" specular="0.5" shininess="0.25" rgba="0.490196 0.678431 0.800000 1.000000"/>
+    
+    
+    <!-- base material and mesh -->
+    <mesh name="base_vis_0" file="assets/base_0.obj"/>
+    <mesh name="base_vis_1" file="assets/base_1.obj"/>
+    <!-- forearm mesh -->
+    <mesh name="forearm_vis_0" file="assets/forearm_0.obj"/>
+    <mesh name="forearm_vis_1" file="assets/forearm_1.obj"/>
+    <mesh name="forearm_vis_2" file="assets/forearm_2.obj"/>
+    <mesh name="forearm_vis_3" file="assets/forearm_3.obj"/>
+    <!-- shoulder material and mesh -->
+    <mesh name="shoulder_vis_0" file="assets/shoulder_0.obj"/>
+    <mesh name="shoulder_vis_1" file="assets/shoulder_1.obj"/>
+    <mesh name="shoulder_vis_2" file="assets/shoulder_2.obj"/>
+    <!-- upperarm material and mesh -->
+    <mesh name="upperarm_vis_0" file="assets/upperarm_0.obj"/>
+    <mesh name="upperarm_vis_1" file="assets/upperarm_1.obj"/>
+    <mesh name="upperarm_vis_2" file="assets/upperarm_2.obj"/>
+    <mesh name="upperarm_vis_3" file="assets/upperarm_3.obj"/>
+    <!-- wrist1 material and mesh -->
+    <mesh name="wrist1_vis_0" file="assets/wrist1_0.obj"/>
+    <mesh name="wrist1_vis_1" file="assets/wrist1_1.obj"/>
+    <mesh name="wrist1_vis_2" file="assets/wrist1_2.obj"/>
+    <!-- wrist2 material and mesh -->
+    <mesh name="wrist2_vis_0" file="assets/wrist2_0.obj"/>
+    <mesh name="wrist2_vis_1" file="assets/wrist2_1.obj"/>
+    <mesh name="wrist2_vis_2" file="assets/wrist2_2.obj"/>
+    <!-- wrist3 material and mesh -->
+    <mesh name="wrist3_vis" file="assets/wrist3.obj"/>
+
+
+    <!-- Assuming these meshes are now in the 'meshes/' subdirectory within your robot's asset folder -->
+    <!-- For UR10, we'll use these same meshes for both visual and collision, applying materials for visual -->
+    <mesh name="base" file="meshes/base.stl"/>
+    <mesh name="shoulder" file="meshes/shoulder.stl"/>
+    <mesh name="upperarm" file="meshes/upperarm.stl"/>
+    <mesh name="forearm" file="meshes/forearm.stl"/>
+    <mesh name="wrist1" file="meshes/wrist1.stl"/>
+    <mesh name="wrist2" file="meshes/wrist2.stl"/>
+    <mesh name="wrist3" file="meshes/wrist3.stl"/>
+  </asset>
+
+  <worldbody>
+    <!-- Robosuite requires a top-level "base" body for the robot, containing the robotview camera and the entire robot structure -->
+    <body name="base" pos="0 0 0">
+      <!-- Robot view camera as required by Robosuite -->
+      <!-- Adjusted pos.x to 2.0 to move the camera further back, allowing more of the robot to be seen. -->
+      <camera mode="fixed" name="robotview" pos="2.0 0 0.4" quat="0.653 0.271 0.271 0.653"/>
+      <!-- Inertial for the base body (often left as 0 mass for fixed base robots) -->
+      <inertial diaginertia="0 0 0" mass="0" pos="0 0 0"/>
+      <!-- Placeholder for mount attachment if needed -->
+
+      <!-- ADDED: fixed_base_link body to match UR10 structure and house base geoms and right_center site -->
+      <body name="fixed_base_link" pos="0 0 0">
+        <!-- ADDED: The 'right_center' site required by Robosuite's controllers, placed in fixed_base_link -->
+        <site name="right_center" pos="0 0 0" size="0.01" rgba="1 0.3 0.3 1" group="2"/>
+
+        <!-- Visual geoms for the base, using specific _vis_0, _vis_1 meshes -->
+        <geom mesh="base_vis_0" material="Black" type="mesh" contype="0" conaffinity="0" group="1"/>
+        <geom mesh="base_vis_1" material="JointGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+        <!-- Collision geom for the base -->
+        <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="base" name="base_col"/>
+
+        <body name="shoulder_link" pos="0 0 0.1273"> 
+          <inertial pos="0 0 0" mass="7.778" diaginertia="0.0314743 0.0314743 0.0218756"/>
+          <joint name="shoulder_pan_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" damping="0.001" frictionloss="0.01"/>
+          <!-- Visual geoms for shoulder -->
+          <geom mesh="shoulder_vis_0" material="URBlue" type="mesh" contype="0" conaffinity="0" group="1"/>
+          <geom mesh="shoulder_vis_1" material="Black" type="mesh" contype="0" conaffinity="0" group="1"/>
+          <geom mesh="shoulder_vis_2" material="JointGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+          <!-- Collision geom for shoulder -->
+          <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="shoulder" name="shoulder_col"/>
+
+          <!-- upper_arm_link pos and quat based on UR10  -->
+          <body name="upper_arm_link" pos="0 0.138 0" quat="0.707107 0 0.707107 0">
+            <inertial pos="-0.306 0 0.175" mass="12.93" diaginertia="0.421754 0.421754 0.0363656"/>
+            <joint name="shoulder_lift_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-6.28319 6.28319" damping="0.001" frictionloss="0.01"/>
+            <!-- Visual geoms for upperarm -->
+            <geom mesh="upperarm_vis_0" material="LinkGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+            <geom mesh="upperarm_vis_1" material="Black" type="mesh" contype="0" conaffinity="0" group="1"/>
+            <geom mesh="upperarm_vis_2" material="JointGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+            <geom mesh="upperarm_vis_3" material="URBlue" type="mesh" contype="0" conaffinity="0" group="1"/>
+            <!-- Collision geom for upperarm -->
+            <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="upperarm" name="upperarm_col"/>
+
+            <!-- forearm_link pos based on UR10 -->
+            <body name="forearm_link" pos="0 -0.131 0.612">
+              <inertial pos="-0.28615 0 0.049042" mass="3.87" diaginertia="0.11107 0.11107 0.0108844"/>
+              <joint name="elbow_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-3.14159 3.14159" damping="0.001" frictionloss="0.01"/>
+              <!-- Visual geoms for forearm -->
+              <geom mesh="forearm_vis_0" material="URBlue" type="mesh" contype="0" conaffinity="0" group="1"/>
+              <geom mesh="forearm_vis_1" material="LinkGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+              <geom mesh="forearm_vis_2" material="Black" type="mesh" contype="0" conaffinity="0" group="1"/>
+              <geom mesh="forearm_vis_3" material="JointGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+              <!-- Collision geom for forearm -->
+              <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="forearm" name="forearm_col"/>
+
+              <!-- wrist_1_link pos and quat based on UR10 -->
+              <body name="wrist_1_link" pos="0 0 0.5723" quat="0.707107 0 0.707107 0">
+                <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="1.96" diaginertia="0.00510825 0.00510825 0.0055125"/>
+                <joint name="wrist_1_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-6.28319 6.28319" damping="0.001" frictionloss="0.01"/>
+                <!-- Visual geoms for wrist1 -->
+                <geom mesh="wrist1_vis_0" material="Black" type="mesh" contype="0" conaffinity="0" group="1"/>
+                <geom mesh="wrist1_vis_1" material="URBlue" type="mesh" contype="0" conaffinity="0" group="1"/>
+                <geom mesh="wrist1_vis_2" material="JointGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+                <!-- Collision geom for wrist1 -->
+                <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist1" name="wrist1_col"/>
+
+                <!-- wrist_2_link pos and quat based on UR10 -->
+                <body name="wrist_2_link" pos="0 0.137 0"> <!-- MODIFIED POS TO MATCH UR10 -->
+                  <inertial pos="0 0 0" quat="0.5 0.5 -0.5 0.5" mass="1.96" diaginertia="0.00407925 0.00407925 0.0055125"/>
+                  <joint name="wrist_2_joint" pos="0 0 0" axis="0 0 1" limited="true" range="-6.28319 6.28319" damping="0.001" frictionloss="0.01"/>
+                  <!-- Visual geoms for wrist2 -->
+                  <geom mesh="wrist2_vis_0" material="Black" type="mesh" contype="0" conaffinity="0" group="1"/>
+                  <geom mesh="wrist2_vis_1" material="URBlue" type="mesh" contype="0" conaffinity="0" group="1"/>
+                  <geom mesh="wrist2_vis_2" material="JointGrey" type="mesh" contype="0" conaffinity="0" group="1"/>
+                  <!-- Collision geom for wrist2 -->
+                  <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist2" name="wrist2_col"/>
+
+                  <!-- wrist_3_link pos and quat based on UR10 -->
+                  <body name="wrist_3_link" pos="0 0 0.117">
+                    <inertial pos="0 0 -0.01525" quat="0.5 0.5 -0.5 0.5" mass="0.202" diaginertia="0.000117922 0.000117922 0.000204525"/>
+                    <joint name="wrist_3_joint" pos="0 0 0" axis="0 1 0" limited="true" range="-6.28319 6.28319" damping="0.001" frictionloss="0.01"/>
+                    <!-- Visual geom for wrist3 -->
+                    <geom material="LinkGrey" mesh="wrist3_vis" type="mesh" contype="0" conaffinity="0" group="1"/>
+                    <!-- Collision geom for wrist3 -->
+                    <geom type="mesh" rgba="0.7 0.7 0.7 1" mesh="wrist3" name="wrist3_col"/>
+                    <!-- Visual geom for the small box (assuming it's part of wrist3 visual) -->
+                    <geom size="0.005 0.005 0.005" pos="0 0.09 0" quat="0.707107 0 0 0.707107" type="box" name="wrist3_col2"/> <!-- This was a collision geom, changed name to match UR10 visual structure -->
+
+                    <!-- DUMMY END-EFFECTOR BODY FOR ROBOSUITE -->
+                    <!-- This body acts as a standardized attachment point for grippers and contains visualization sites and an eye-in-hand camera. -->
+                    <!-- 'pos' is relative to its parent (wrist_3_link). 'quat' orient the hand frame. -->
+                    <!-- Z-axis should point out of the robot eef, Y-axis perpendicular to grasping motion. -->
+                    <!-- Adjusted pos and quat to match UR10  -->
+                    <body name="right_hand" pos="0 0.098 0" quat="0.707 -0.707 0 0">
+                        <!-- These sites are for visualization and standardized across models -->
+                        <!-- 'ee' site mimics the gripper attachment point -->
+                        <site name="ee" pos="0 0 0" size="0.01 0.01 0.01" rgba="0 0 1 1" type="sphere" group="1"/>
+                        <!-- Axis sites for visual orientation of the end-effector -->
+                        <site name="ee_x" pos="0 0 0" size="0.005 .1"  quat="0.707105 0.707108 0 0 " rgba="1 0 0 0" type="cylinder" group="1"/>
+                        <site name="ee_z" pos="0 0 0" size="0.005 .1" quat="0.707105 0 0 0.707108" rgba="0 0 1 0" type="cylinder" group="1"/>
+                        <site name="ee_y" pos="0 0 0" size="0.005 .1" quat="0.707105 0 0.707108 0 " rgba="0 1 0 0" type="cylinder" group="1"/>
+                        <!-- Eye-in-hand camera for visual tasks -->
+                        <camera mode="fixed" name="eye_in_hand" pos="0.05 0 0" quat="0 0.707108 0.707108 0" fovy="75"/>
+                        <!-- Placeholder for adding a gripper XML here -->
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

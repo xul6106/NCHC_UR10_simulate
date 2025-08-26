@@ -1,0 +1,27 @@
+<mujoco model="coffee_pot">
+  <asset>
+    <mesh file="meshes/coffee_pot.obj" name="coffee_pot_mesh"/>
+
+    <material name="metal_material" rgba="0.7 0.7 0.6 1" shininess="0.8" specular="0.8"/>
+  </asset>
+
+  <worldbody>
+    <body>
+      <body name="object">
+        <geom pos="0 0 0" mesh="coffee_pot_mesh" type="mesh" 
+              density="150" friction="0.95 0.3 0.1" material="metal_material"
+              contype="0" conaffinity="0" group="1"/>
+
+        <geom pos="0 0 0" mesh="coffee_pot_mesh" type="mesh" 
+              density="150" friction="0.95 0.3 0.1" material="metal_material" 
+              group="0"/>
+
+        </body>
+
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.09" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0.08 0 0.05" name="handle_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="-0.08 0 0.05" name="spout_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.1" name="top_site"/>
+    </body>
+  </worldbody>
+</mujoco>

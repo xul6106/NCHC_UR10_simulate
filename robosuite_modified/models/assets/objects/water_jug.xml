@@ -1,0 +1,27 @@
+<mujoco model="water_jug">
+  <asset>
+    <mesh file="meshes/water_jug.stl" name="water_jug_mesh"/>
+
+    <material name="glass_material" rgba="0.737 0.929 1 1" shininess="0.5" specular="0.5"/>
+  </asset>
+
+  <worldbody>
+    <body>
+      <body name="object">
+        <geom pos="0 0 0" mesh="water_jug_mesh" type="mesh" 
+              density="80" friction="0.95 0.5 0.15" material="glass_material"
+              contype="0" conaffinity="0" group="1"/>
+
+        <geom pos="0 0 0" mesh="water_jug_mesh" type="mesh" 
+              density="80" friction="0.95 0.5 0.15" material="glass_material" 
+              group="0"/>
+
+        </body>
+
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.15" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.20" name="cap_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.0" name="center_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.22" name="spout_site"/>
+    </body>
+  </worldbody>
+</mujoco>

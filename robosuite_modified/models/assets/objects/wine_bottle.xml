@@ -1,0 +1,27 @@
+<mujoco model="wine_bottle">
+  <asset>
+    <mesh file="meshes/wine_bottle.obj" name="wine_bottle_mesh"/>
+
+    <material name="glass_material" rgba="0.5 0.2 0.2 1" shininess="0.5" specular="0.5"/>
+  </asset>
+
+  <worldbody>
+    <body>
+      <body name="object">
+        <geom pos="0 0 0" mesh="wine_bottle_mesh" type="mesh" 
+              density="150" friction="0.95 0.3 0.1" material="glass_material"
+              contype="0" conaffinity="0" group="1"/>
+
+        <geom pos="0 0 0" mesh="wine_bottle_mesh" type="mesh" 
+              density="150" friction="0.95 0.3 0.1" material="glass_material" 
+              group="0"/>
+
+        </body>
+
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 -0.15" name="bottom_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.20" name="cap_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.0" name="center_site"/>
+      <site rgba="0 0 0 0" size="0.005" pos="0 0 0.22" name="spout_site"/>
+    </body>
+  </worldbody>
+</mujoco>
