@@ -36,17 +36,17 @@ DualTableTask：雙桌飲品協作任務
 # 🎮 Requirements
 Hardware:
 
-1x SONY DualSense and USB-C cables
+   - 1x SONY DualSense and USB-C cables
 
 Software:
 
-Python 3.9
+   - Python 3.9
 
-Ubuntu 20.04
+   - Ubuntu 20.04
 
-Mujoco dependencies
+   - Mujoco dependencies
 
-Conda environment
+   - Conda environment
 
 ---
 
