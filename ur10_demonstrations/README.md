@@ -3,7 +3,7 @@
 ur10_dualtable_dualsense_205、ur10_dualtable_dualsense_220、ur10_dualtable_dualsense_381
 ****
 
-data蒐集詳見：run.sh
+## data蒐集詳見：run.sh
 
 收集dataset請用
 ```Python
