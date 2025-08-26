@@ -14,7 +14,7 @@ DualTableTask：雙桌飲品協作任務
 
 ---
 
-# 核心功能與特色
+# 💡 核心功能與特色
 1. 動態多目標選擇 (Dynamic Multi-Target Selection)
    
    * 馬克杯任務： 針對馬克杯，機器人有兩種正確的選擇（水壺或綠茶），這強迫代理人學會辨識特定目標，而非盲目抓取。
@@ -33,7 +33,20 @@ DualTableTask：雙桌飲品協作任務
 
 ---
 
-# Installation
+# 🎮 Requirements
+Hardware:
+
+1x SONY DualSense and USB-C cables
+
+Software:
+
+Ubuntu 20.04
+Mujoco dependencies
+Conda environment
+
+---
+
+# ⚙️ Installation
 要在具有 Nvidia GPU 的 Linux機器（Ubuntu 20.04）上安裝 Conda 環境以使用 MuJoCo，需要安裝以下apt套件:
 ```Bash
 $ sudo apt install -y libosmesa6-dev libgl1-mesa-glx libglfw3 patchelf
@@ -56,3 +69,4 @@ $ git clone https://github.com/ARISE-Initiative/robomimic.git
 $ cd robomimic
 $ pip install -e .
 ```
+
