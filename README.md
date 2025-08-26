@@ -40,6 +40,8 @@ Hardware:
 
 Software:
 
+Python 3.9
+
 Ubuntu 20.04
 
 Mujoco dependencies
